@@ -190,7 +190,7 @@ export default function Landing() {
               <Bell className="w-3 h-3 mr-1" />
               ALERT TRIGGERED
             </Badge>
-            <h2 className="text-3xl font-bold text-gray-900">Perfect matches happening right now</h2>
+            <h2 className="text-3xl font-bold text-white">Perfect matches happening right now</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
