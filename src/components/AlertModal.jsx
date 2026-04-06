@@ -1,17 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-const defaultForm = { destination: '', origin: 'Porto', maxFlight: '', maxHotel: '', weather: 'Any', dateFrom: '', dateTo: '' }
+const empty = { destination: '', origin: 'Porto', maxFlight: '', maxHotel: '', weather: 'Any', dateFrom: '', dateTo: '' }
 
 export default function AlertModal({ isOpen, onClose, prefill }) {
-  const [form, setForm] = useState(defaultForm)
+  const [form, setForm] = useState(empty)
+  const closeRef = useRef(null)
 
   useEffect(() => {
-    if (prefill) {
-      setForm({ ...defaultForm, destination: prefill.destination, origin: prefill.flight?.origin || 'Porto' })
-    } else {
-      setForm(defaultForm)
+    if (isOpen) {
+      setForm(prefill
+        ? { ...empty, destination: prefill.destination, origin: prefill.flight?.origin || 'Porto' }
+        : empty
+      )
+      // Focus trap — move focus into modal
+      setTimeout(() => closeRef.current?.focus(), 0)
     }
   }, [prefill, isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handler = (e) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -24,60 +35,53 @@ export default function AlertModal({ isOpen, onClose, prefill }) {
     onClose()
   }
 
-  const inputCls = 'w-full px-3 py-2.5 rounded-lg bg-navy-700 border border-navy-600 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-electric transition'
-  const labelCls = 'block text-xs font-medium text-slate-400 mb-1.5'
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-      <div className="relative bg-navy-800 border border-navy-600 rounded-2xl w-full max-w-md p-6 shadow-2xl">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-semibold text-white">New Alert</h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white transition">✕</button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Create new alert">
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="relative bg-base-900 border border-base-700/50 rounded-lg w-full max-w-sm p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-[14px] font-semibold text-white">New alert</h2>
+          <button ref={closeRef} onClick={onClose} className="text-base-500 hover:text-white transition text-sm" aria-label="Close">
+            &times;
+          </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className={labelCls}>Destination</label>
-            <input required value={form.destination} onChange={set('destination')} placeholder="e.g. Barcelona" className={inputCls} />
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <Field label="Destination" required value={form.destination} onChange={set('destination')} placeholder="Barcelona" />
+          <Field label="Origin" required value={form.origin} onChange={set('origin')} placeholder="Porto" />
+          <div className="grid grid-cols-2 gap-2">
+            <Field label="Max flight (€)" type="number" min="0" value={form.maxFlight} onChange={set('maxFlight')} placeholder="100" />
+            <Field label="Max hotel/night (€)" type="number" min="0" value={form.maxHotel} onChange={set('maxHotel')} placeholder="75" />
           </div>
           <div>
-            <label className={labelCls}>Origin Airport</label>
-            <input required value={form.origin} onChange={set('origin')} placeholder="e.g. Porto" className={inputCls} />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className={labelCls}>Max Flight Price (€)</label>
-              <input type="number" min="0" value={form.maxFlight} onChange={set('maxFlight')} placeholder="100" className={inputCls} />
-            </div>
-            <div>
-              <label className={labelCls}>Max Hotel/Night (€)</label>
-              <input type="number" min="0" value={form.maxHotel} onChange={set('maxHotel')} placeholder="75" className={inputCls} />
-            </div>
-          </div>
-          <div>
-            <label className={labelCls}>Preferred Weather</label>
-            <select value={form.weather} onChange={set('weather')} className={inputCls}>
+            <label className="block text-[11px] text-base-400 mb-1">Weather preference</label>
+            <select value={form.weather} onChange={set('weather')} className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-white focus:outline-none focus:border-blue-500 transition">
               <option value="Any">Any</option>
               <option value="Sunny">Sunny</option>
               <option value="Warm">Warm</option>
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className={labelCls}>From</label>
-              <input type="date" value={form.dateFrom} onChange={set('dateFrom')} className={inputCls} />
-            </div>
-            <div>
-              <label className={labelCls}>To</label>
-              <input type="date" value={form.dateTo} onChange={set('dateTo')} className={inputCls} />
-            </div>
+          <div className="grid grid-cols-2 gap-2">
+            <Field label="From" type="date" value={form.dateFrom} onChange={set('dateFrom')} />
+            <Field label="To" type="date" value={form.dateTo} onChange={set('dateTo')} />
           </div>
-          <button type="submit" className="w-full py-3 bg-electric hover:bg-electric-light text-white font-semibold rounded-lg transition mt-2">
-            Create Alert
+          <button type="submit" className="w-full py-2 text-[13px] font-medium bg-blue-500 hover:bg-blue-400 text-white rounded transition mt-1">
+            Create alert
           </button>
         </form>
       </div>
+    </div>
+  )
+}
+
+function Field({ label, ...props }) {
+  return (
+    <div>
+      <label className="block text-[11px] text-base-400 mb-1">{label}</label>
+      <input
+        {...props}
+        className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-white placeholder-base-500 focus:outline-none focus:border-blue-500 transition"
+      />
     </div>
   )
 }

@@ -1,24 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-900: #0a0e1a;
-  --color-navy-800: #0f1629;
-  --color-navy-700: #151d38;
-  --color-navy-600: #1c2747;
-  --color-electric: #3b82f6;
-  --color-electric-light: #60a5fa;
-  --color-amber: #f59e0b;
-  --color-amber-light: #fbbf24;
+  --color-base-950: #09090b;
+  --color-base-900: #0c0c10;
+  --color-base-800: #131318;
+  --color-base-700: #1c1c24;
+  --color-base-600: #26262f;
+  --color-base-500: #3f3f4a;
+  --color-base-400: #71717a;
+  --color-base-300: #a1a1aa;
+  --color-blue-500: #2563eb;
+  --color-blue-400: #3b82f6;
+  --color-blue-300: #93c5fd;
+  --color-warm-500: #d97706;
+  --color-warm-400: #f59e0b;
+  --color-warm-300: #fcd34d;
+  --color-green-500: #16a34a;
+  --color-green-400: #22c55e;
+  --color-red-400: #f87171;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: var(--color-navy-900);
-  color: #e2e8f0;
+  background: var(--color-base-950);
+  color: var(--color-base-300);
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
 #root {
   min-height: 100vh;
+}
+
+input, select, button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--color-blue-500);
+  color: white;
 }

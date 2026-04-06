@@ -10,37 +10,51 @@ export default function MyAlerts() {
     setAlerts(alerts.filter((a) => a.id !== id))
   }
 
+  if (alerts.length === 0) {
+    return (
+      <div className="py-16 text-center" role="status">
+        <p className="text-[13px] text-base-500">No alerts yet.</p>
+        <p className="text-[12px] text-base-500 mt-1">Create one from the Dashboard.</p>
+      </div>
+    )
+  }
+
   return (
     <>
-      <h2 className="text-xl font-semibold text-white mb-6">My Alerts</h2>
-
-      {alerts.length === 0 ? (
-        <p className="text-slate-500">No alerts yet. Create one from the Dashboard.</p>
-      ) : (
-        <div className="space-y-3">
-          {alerts.map((a) => (
-            <div key={a.id} className="bg-navy-800 border border-navy-600 rounded-xl p-4 flex items-center justify-between gap-4 hover:border-navy-600/80 transition">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-1">
-                  <h3 className="text-white font-medium">{a.destination}</h3>
-                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${a.status === 'triggered' ? 'bg-amber/15 text-amber' : 'bg-electric/15 text-electric'}`}>
-                    {a.status === 'triggered' ? 'Triggered' : 'Active'}
-                  </span>
-                </div>
-                <p className="text-xs text-slate-500 truncate">
-                  From {a.origin} · ✈️ ≤€{a.maxFlight} · 🏨 ≤€{a.maxHotel}/n · {a.weather} · {a.dateFrom} → {a.dateTo}
-                </p>
-              </div>
+      <h1 className="text-[15px] font-semibold text-white mb-4">Alerts</h1>
+      <div className="space-y-1.5">
+        {alerts.map((a) => (
+          <div
+            key={a.id}
+            className="flex items-center justify-between gap-3 px-3 py-2.5 rounded bg-base-900 border border-base-700/50 hover:border-base-600 transition"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="text-[13px] font-medium text-white">{a.destination}</span>
+              <span
+                className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
+                  a.status === 'triggered'
+                    ? 'text-warm-400 bg-warm-500/10'
+                    : 'text-green-400 bg-green-500/10'
+                }`}
+              >
+                {a.status === 'triggered' ? 'Triggered' : 'Active'}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-[11px] text-base-500 hidden sm:block">
+                ≤€{a.maxFlight} flight · ≤€{a.maxHotel}/n · {a.weather} · {a.dateFrom}
+              </span>
               <button
                 onClick={() => deleteAlert(a.id)}
-                className="text-slate-500 hover:text-red-400 transition text-sm shrink-0"
+                className="text-[11px] text-base-500 hover:text-red-400 transition"
+                aria-label={`Delete alert for ${a.destination}`}
               >
                 Delete
               </button>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </>
   )
 }

@@ -1,54 +1,76 @@
 import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
-const navItems = [
-  { to: '/app', label: 'Dashboard', icon: '📊' },
-  { to: '/app/alerts', label: 'My Alerts', icon: '🔔' },
-  { to: '/app/explore', label: 'Explore', icon: '🌍' },
-  { to: '/app/settings', label: 'Settings', icon: '⚙️' },
+const nav = [
+  { to: '/app', label: 'Dashboard', end: true },
+  { to: '/app/alerts', label: 'Alerts' },
+  { to: '/app/explore', label: 'Explore' },
+  { to: '/app/settings', label: 'Settings' },
 ]
 
 export default function AppShell() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
-    <div className="min-h-screen flex bg-navy-900">
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setSidebarOpen(false)} />
+    <div className="min-h-screen flex bg-base-950">
+      {open && (
+        <div
+          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
       )}
 
-      {/* Sidebar */}
-      <aside className={`fixed md:static z-40 top-0 left-0 h-full w-60 bg-navy-800 border-r border-navy-600 flex flex-col transition-transform md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="px-5 py-5 flex items-center justify-between">
-          <span className="text-xl font-bold text-white tracking-tight">flio</span>
-          <button className="md:hidden text-slate-400" onClick={() => setSidebarOpen(false)}>✕</button>
+      <aside
+        className={`fixed md:static z-40 top-0 left-0 h-full w-52 bg-base-900 border-r border-base-700/50 flex flex-col transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}
+      >
+        <div className="px-4 h-12 flex items-center justify-between border-b border-base-700/50">
+          <span className="text-[14px] font-semibold text-white tracking-tight">flio</span>
+          <button
+            className="md:hidden text-base-400 text-sm"
+            onClick={() => setOpen(false)}
+            aria-label="Close sidebar"
+          >
+            &times;
+          </button>
         </div>
-        <nav className="flex-1 px-3 space-y-1">
-          {navItems.map((item) => (
+        <nav className="flex-1 py-2 px-2" role="navigation" aria-label="Main">
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.to === '/app'}
-              onClick={() => setSidebarOpen(false)}
+              end={item.end}
+              onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition ${isActive ? 'bg-electric/15 text-electric' : 'text-slate-400 hover:text-white hover:bg-navy-700'}`
+                `block px-3 py-1.5 rounded text-[13px] transition ${
+                  isActive
+                    ? 'bg-base-700/60 text-white font-medium'
+                    : 'text-base-400 hover:text-base-300 hover:bg-base-800'
+                }`
               }
             >
-              <span>{item.icon}</span>
               {item.label}
             </NavLink>
           ))}
         </nav>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center gap-4 px-6 py-4 border-b border-navy-700">
-          <button className="md:hidden text-slate-400 text-xl" onClick={() => setSidebarOpen(true)}>☰</button>
-          <h1 className="text-lg font-semibold text-white">Flio</h1>
+        <header className="h-12 flex items-center gap-3 px-4 border-b border-base-700/50">
+          <button
+            className="md:hidden text-base-400"
+            onClick={() => setOpen(true)}
+            aria-label="Open sidebar"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span className="text-[13px] text-base-400">Dashboard</span>
         </header>
-        <main className="flex-1 p-6 overflow-auto">
+        <main className="flex-1 p-4 overflow-auto">
           <Outlet />
         </main>
       </div>

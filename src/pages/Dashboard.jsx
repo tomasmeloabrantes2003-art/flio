@@ -7,8 +7,7 @@ export default function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false)
   const [prefill, setPrefill] = useState(null)
 
-  // TODO: fetch opportunities from backend API
-  // TODO: fetch from OpenWeatherMap + Amadeus + Booking APIs
+  // TODO: fetch opportunities from backend (OpenWeatherMap + Amadeus + Booking)
 
   const handleSetAlert = (opp) => {
     setPrefill(opp)
@@ -17,20 +16,20 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-xl font-semibold text-white">Today's Opportunities</h2>
-          <p className="text-sm text-slate-500 mt-1">Best travel deals from Porto right now</p>
+          <h1 className="text-[15px] font-semibold text-white">Opportunities</h1>
+          <p className="text-[12px] text-base-400 mt-0.5">Flights from Porto — updated today</p>
         </div>
         <button
           onClick={() => { setPrefill(null); setModalOpen(true) }}
-          className="px-4 py-2 bg-electric hover:bg-electric-light text-white text-sm font-semibold rounded-lg transition"
+          className="px-3 py-1.5 text-[12px] font-medium bg-blue-500 hover:bg-blue-400 text-white rounded transition"
         >
-          + New Alert
+          New alert
         </button>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {opportunities.map((opp) => (
           <OpportunityCard key={opp.id} opp={opp} onSetAlert={handleSetAlert} />
         ))}
