@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Bell, Search, TrendingDown, Sparkles, Plane, MapPin, Calendar, ArrowRight, Check } from 'lucide-react';
+import { Bell, Search, TrendingDown, Sparkles, Plane, MapPin, Calendar, ArrowRight, Check, Shield, Zap } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { DestinationCard } from '../components/DestinationCard';
@@ -15,7 +15,7 @@ const destinations = [
     weather: 'Sunny',
     flightPrice: 42,
     hotelPrice: 51,
-    dateRange: 'Jun 8 - Jun 14',
+    dateRange: 'Jun 8 – Jun 14',
     imageUrl: 'https://images.unsplash.com/photo-1662494501848-113e87d90cdd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYXJjZWxvbmElMjBjaXR5c2NhcGUlMjBzYWdyYWRhJTIwZmFtaWxpYXxlbnwxfHx8fDE3NzU0ODU2ODB8MA&ixlib=rb-4.1.0&q=80&w=1080',
     badge: 'Match found'
   },
@@ -26,8 +26,9 @@ const destinations = [
     weather: 'Sunny',
     flightPrice: 67,
     hotelPrice: 89,
-    dateRange: 'Jul 15 - Jul 22',
-    imageUrl: 'https://images.unsplash.com/photo-1497339047006-39f2b26f005d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzYW50b3JpbmklMjBncmVlY2UlMjB3aGl0ZSUyMGJ1aWxkaW5nc3xlbnwxfHx8fDE3NzU0ODI5MTV8MA&ixlib=rb-4.1.0&q=80&w=1080'
+    dateRange: 'Jul 15 – Jul 22',
+    imageUrl: 'https://images.unsplash.com/photo-1497339047006-39f2b26f005d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzYW50b3JpbmklMjBncmVlY2UlMjB3aGl0ZSUyMGJ1aWxkaW5nc3xlbnwxfHx8fDE3NzU0ODI5MTV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    badge: 'Top rated'
   },
   {
     city: 'Bali',
@@ -36,29 +37,10 @@ const destinations = [
     weather: 'Partly cloudy',
     flightPrice: 124,
     hotelPrice: 45,
-    dateRange: 'Aug 5 - Aug 12',
+    dateRange: 'Aug 5 – Aug 12',
     imageUrl: 'https://images.unsplash.com/photo-1581032841303-0ba9e894ebc3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwdGVtcGxlJTIwaW5kb25lc2lhfGVufDF8fHx8MTc3NTQ2ODcxMXww&ixlib=rb-4.1.0&q=80&w=1080',
     badge: 'Best deal'
   }
-];
-
-const steps = [
-  { step: '1', title: 'Tell us what you want', description: 'Pick destinations, set your budget ceiling for flights and hotels, choose your ideal weather.', icon: Search, color: 'blue' },
-  { step: '2', title: 'We watch everything', description: 'Flio checks flight prices, hotel rates, and weather forecasts daily across all your destinations.', icon: TrendingDown, color: 'green' },
-  { step: '3', title: "Book when it's perfect", description: 'Get one notification when every condition is met. No spam, no false alarms — just the right moment.', icon: Bell, color: 'purple' },
-];
-
-const features = [
-  { icon: Plane, text: 'Track unlimited destinations simultaneously' },
-  { icon: MapPin, text: 'Real-time weather and price monitoring' },
-  { icon: Calendar, text: 'Flexible date ranges that fit your schedule' },
-  { icon: Bell, text: 'Instant alerts when all conditions align' },
-];
-
-const stats = [
-  { number: '200+', label: 'Destinations tracked' },
-  { number: '3', label: 'Data sources combined' },
-  { number: '1', label: 'Alert is all you need' },
 ];
 
 export default function Landing() {
@@ -75,134 +57,130 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-white">
+      {/* ═══════════ HERO ═══════════ */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 opacity-90" />
         <img
           src="https://images.unsplash.com/photo-1660207766758-a2e5985005ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGJlYWNoJTIwcGFyYWRpc2UlMjBzdW5zZXR8ZW58MXx8fHwxNzc1NDYyOTc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Tropical paradise"
+          alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 to-purple-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/85 via-blue-900/80 to-blue-950/95" />
 
-        {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between px-6 lg:px-16 py-6">
-          <motion.div
+        {/* Nav */}
+        <nav className="relative z-10 flex items-center justify-between px-6 lg:px-16 py-5 max-w-7xl mx-auto">
+          <motion.span
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-3xl font-bold text-white"
+            className="text-2xl font-bold text-white tracking-tight"
           >
             flio
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+          </motion.span>
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
             <Link to="/app">
-              <Button variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-sm">
+              <Button variant="outline" className="bg-white/10 text-white border-white/25 hover:bg-white/20 backdrop-blur-sm text-sm">
                 Open app
               </Button>
             </Link>
           </motion.div>
         </nav>
 
-        {/* Hero Content */}
-        <div className="relative z-10 px-6 lg:px-16 pt-20 pb-32">
-          <div className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm hover:bg-white/30">
-                <Sparkles className="w-3 h-3 mr-1" />
+        {/* Hero content */}
+        <div className="relative z-10 px-6 lg:px-16 pt-24 pb-40 max-w-7xl mx-auto">
+          <div className="max-w-3xl">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+              <Badge className="mb-6 bg-white/15 text-white/90 border-white/20 backdrop-blur-sm text-xs tracking-wider">
+                <Sparkles className="w-3 h-3 mr-1.5" />
                 STOP REFRESHING. START TRAVELING.
               </Badge>
             </motion.div>
 
             <motion.h1
-              className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.08] tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.25 }}
             >
-              The right trip, at the right price, right now.
+              The right trip,<br />at the right price,<br />
+              <span className="text-orange-400">right now.</span>
             </motion.h1>
 
             <motion.p
-              className="text-xl text-white/90 mb-10 max-w-2xl"
+              className="text-lg lg:text-xl text-white/75 mb-10 max-w-xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.35 }}
             >
-              Set your dream conditions — weather, budget, dates — and Flio watches hundreds of destinations until everything clicks. One alert. No noise.
+              Set your dream conditions — weather, budget, dates — and Flio watches hundreds of destinations until everything clicks.
             </motion.p>
 
-            {/* Email Signup Form */}
             <motion.form
               onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-xl"
+              className="flex flex-col sm:flex-row gap-3 max-w-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.45 }}
             >
               <Input
                 type="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-14 bg-white/95 backdrop-blur-sm border-none text-lg"
+                className="flex-1 h-13 bg-white border-none text-base text-gray-900 placeholder:text-gray-400 shadow-lg"
                 required
               />
               <Button
                 type="submit"
                 size="lg"
-                className="h-14 px-8 bg-orange-500 hover:bg-orange-600 text-white shadow-lg"
+                className="h-13 px-7 bg-orange-500 hover:bg-orange-400 text-white font-semibold shadow-lg shadow-orange-500/25 transition-all hover:shadow-orange-400/30"
               >
                 {submitted ? (
-                  <>
-                    <Check className="w-5 h-5 mr-2" />
-                    You're in!
-                  </>
+                  <><Check className="w-5 h-5 mr-2" /> You're in!</>
                 ) : (
-                  <>
-                    Join waitlist
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </>
+                  <>Join waitlist <ArrowRight className="w-5 h-5 ml-2" /></>
                 )}
               </Button>
             </motion.form>
+
+            <motion.p
+              className="mt-4 text-sm text-white/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              Free forever during beta · No spam · Unsubscribe anytime
+            </motion.p>
           </div>
         </div>
       </div>
 
-      {/* Example Alerts Section */}
-      <div className="px-6 lg:px-16 -mt-20 pb-20 relative z-20">
+      {/* ═══════════ DESTINATION CARDS ═══════════ */}
+      <div className="relative z-20 -mt-24 px-6 lg:px-16 pb-24">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            <Badge className="mb-3 bg-blue-100 text-blue-700 border-blue-200">
-              <Bell className="w-3 h-3 mr-1" />
-              ALERT TRIGGERED
+            <Badge className="mb-3 bg-emerald-100 text-emerald-700 border-emerald-200 text-xs">
+              <Zap className="w-3 h-3 mr-1" />
+              LIVE ALERTS
             </Badge>
-            <h2 className="text-3xl font-bold text-white">Perfect matches happening right now</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Perfect matches happening right now</h2>
+            <p className="text-gray-500 mt-2">These deals matched someone's alert today — yours could be next.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {destinations.map((dest, idx) => (
-              <DestinationCard key={dest.city} {...dest} delay={0.7 + idx * 0.1} />
+              <DestinationCard key={dest.city} {...dest} delay={0.1 + idx * 0.1} />
             ))}
           </div>
         </div>
       </div>
 
-      {/* How It Works Section */}
-      <div className="px-6 lg:px-16 py-20 bg-gray-50">
+      {/* ═══════════ HOW IT WORKS ═══════════ */}
+      <div className="px-6 lg:px-16 py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -210,36 +188,37 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">How it works</h2>
-            <p className="text-xl text-gray-600">Three simple steps to your perfect trip</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">How it works</h2>
+            <p className="text-lg text-gray-500">Three steps. Zero effort.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {steps.map((item, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+            {[
+              { n: '01', title: 'Tell us what you want', desc: 'Pick destinations, set your budget ceiling for flights and hotels, choose your ideal weather.', icon: Search, accent: 'blue' },
+              { n: '02', title: 'We watch everything', desc: 'Flio checks flight prices, hotel rates, and weather forecasts daily across all your destinations.', icon: TrendingDown, accent: 'emerald' },
+              { n: '03', title: "Book when it's perfect", desc: 'Get one notification when every condition is met. No spam, no false alarms — just the right moment.', icon: Bell, accent: 'orange' },
+            ].map((item, idx) => (
               <motion.div
-                key={item.step}
-                className="relative"
+                key={item.n}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${item.color === 'blue' ? 'bg-blue-100' : item.color === 'green' ? 'bg-green-100' : 'bg-purple-100'}`}>
-                  <item.icon className={`w-8 h-8 ${item.color === 'blue' ? 'text-blue-600' : item.color === 'green' ? 'text-green-600' : 'text-purple-600'}`} />
+                <span className="text-xs font-bold text-gray-300 tracking-widest">{item.n}</span>
+                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mt-3 mb-4 ${item.accent === 'blue' ? 'bg-blue-100' : item.accent === 'emerald' ? 'bg-emerald-100' : 'bg-orange-100'}`}>
+                  <item.icon className={`w-7 h-7 ${item.accent === 'blue' ? 'text-blue-600' : item.accent === 'emerald' ? 'text-emerald-600' : 'text-orange-600'}`} />
                 </div>
-                <div className={`absolute top-0 -left-2 w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-lg ${item.color === 'blue' ? 'bg-blue-600' : item.color === 'green' ? 'bg-green-600' : 'bg-purple-600'}`}>
-                  {item.step}
-                </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="px-6 lg:px-16 py-20">
+      {/* ═══════════ WHY FLIO ═══════════ */}
+      <div className="px-6 lg:px-16 py-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -247,21 +226,26 @@ export default function Landing() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">Why travelers love Flio</h2>
-              <div className="space-y-6">
-                {features.map((feature, idx) => (
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Why travelers choose Flio</h2>
+              <div className="space-y-5">
+                {[
+                  { icon: Plane, text: 'Track unlimited destinations at once', color: 'blue' },
+                  { icon: MapPin, text: 'Real-time weather and price monitoring', color: 'emerald' },
+                  { icon: Calendar, text: 'Flexible date ranges that fit your life', color: 'orange' },
+                  { icon: Shield, text: 'No spam — only alerts that matter', color: 'purple' },
+                ].map((f, idx) => (
                   <motion.div
                     key={idx}
-                    className="flex items-start gap-4"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
+                    transition={{ delay: idx * 0.08 }}
                   >
-                    <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-6 h-6 text-blue-600" />
+                    <div className={`w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 ${f.color === 'blue' ? 'bg-blue-100' : f.color === 'emerald' ? 'bg-emerald-100' : f.color === 'orange' ? 'bg-orange-100' : 'bg-purple-100'}`}>
+                      <f.icon className={`w-5 h-5 ${f.color === 'blue' ? 'text-blue-600' : f.color === 'emerald' ? 'text-emerald-600' : f.color === 'orange' ? 'text-orange-600' : 'text-purple-600'}`} />
                     </div>
-                    <p className="text-lg text-gray-700 pt-2">{feature.text}</p>
+                    <p className="text-gray-700 font-medium">{f.text}</p>
                   </motion.div>
                 ))}
               </div>
@@ -280,21 +264,32 @@ export default function Landing() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl">
-                <p className="text-sm text-gray-600 mb-2">Average savings</p>
-                <p className="text-3xl font-bold text-green-600">€347</p>
-                <p className="text-xs text-gray-500 mt-1">per trip</p>
-              </div>
+              <motion.div
+                className="absolute -bottom-5 -left-5 bg-white p-5 rounded-xl shadow-xl border border-gray-100"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <p className="text-sm text-gray-500 mb-1">Average savings</p>
+                <p className="text-3xl font-bold text-emerald-600">€347</p>
+                <p className="text-xs text-gray-400 mt-0.5">per trip booked via alert</p>
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="px-6 lg:px-16 py-20 bg-gradient-to-br from-blue-600 to-purple-700">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            {stats.map((stat, idx) => (
+      {/* ═══════════ STATS ═══════════ */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700" />
+        <div className="relative px-6 lg:px-16 py-20 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+            {[
+              { number: '200+', label: 'Destinations tracked' },
+              { number: '3', label: 'Data sources combined' },
+              { number: '1', label: 'Alert is all you need' },
+            ].map((stat, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
@@ -302,52 +297,46 @@ export default function Landing() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <div className="text-5xl font-bold text-white mb-3">{stat.number}</div>
-                <div className="text-lg text-white/80">{stat.label}</div>
+                <div className="text-5xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-base text-white/70">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="px-6 lg:px-16 py-20">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ═══════════ FINAL CTA ═══════════ */}
+      <div className="px-6 lg:px-16 py-24">
+        <div className="max-w-2xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Stop searching. Start traveling.
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Your next trip is waiting.
             </h2>
-            <p className="text-xl text-gray-600 mb-10">
-              Join thousands of travelers who've found their perfect trip with Flio
+            <p className="text-lg text-gray-500 mb-8">
+              Join the waitlist — we'll tell you when your perfect trip is ready to book.
             </p>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <Input
                 type="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-14 text-lg"
+                className="flex-1 h-13 text-base"
                 required
               />
               <Button
                 type="submit"
                 size="lg"
-                className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white"
+                className="h-13 px-7 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg shadow-blue-600/20"
               >
                 {submitted ? (
-                  <>
-                    <Check className="w-5 h-5 mr-2" />
-                    You're in!
-                  </>
+                  <><Check className="w-5 h-5 mr-2" /> You're in!</>
                 ) : (
-                  <>
-                    Get early access
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </>
+                  <>Get early access <ArrowRight className="w-5 h-5 ml-2" /></>
                 )}
               </Button>
             </form>
@@ -356,12 +345,10 @@ export default function Landing() {
       </div>
 
       {/* Footer */}
-      <footer className="px-6 lg:px-16 py-12 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-          <div className="text-2xl font-bold mb-4 md:mb-0">flio</div>
-          <div className="text-sm text-gray-400">
-            © 2026 Flio. Find your perfect trip.
-          </div>
+      <footer className="border-t border-gray-100 px-6 lg:px-16 py-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          <span className="text-lg font-bold text-gray-900 tracking-tight">flio</span>
+          <p className="text-sm text-gray-400">© 2026 Flio. Find your perfect trip.</p>
         </div>
       </footer>
     </div>
