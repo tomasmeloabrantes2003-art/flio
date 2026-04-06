@@ -155,8 +155,8 @@ export default function Landing() {
       </div>
 
       {/* ═══════════ DESTINATION CARDS ═══════════ */}
-      <div className="relative z-20 -mt-24 px-6 lg:px-16 pb-24">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative z-20 -mt-16 px-6 lg:px-16 pb-24">
+        <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-8 sm:p-10">
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 10 }}

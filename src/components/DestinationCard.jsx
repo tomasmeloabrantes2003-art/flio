@@ -22,7 +22,7 @@ export function DestinationCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
     >
-      <Card className="overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+      <Card className="overflow-hidden bg-white border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
         <div className="relative h-52">
           <img
             src={imageUrl}
