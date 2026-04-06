@@ -18,8 +18,8 @@ export default function Dashboard() {
     <>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-[15px] font-semibold text-white">Opportunities</h1>
-          <p className="text-[12px] text-base-400 mt-0.5">Flights from Porto — updated today</p>
+          <h1 className="text-[15px] font-semibold text-base-300">Opportunities</h1>
+          <p className="text-[12px] text-base-500 mt-0.5">Flights from Porto — updated today</p>
         </div>
         <button
           onClick={() => { setPrefill(null); setModalOpen(true) }}

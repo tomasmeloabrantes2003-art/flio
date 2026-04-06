@@ -12,7 +12,6 @@ export default function AlertModal({ isOpen, onClose, prefill }) {
         ? { ...empty, destination: prefill.destination, origin: prefill.flight?.origin || 'Porto' }
         : empty
       )
-      // Focus trap — move focus into modal
       setTimeout(() => closeRef.current?.focus(), 0)
     }
   }, [prefill, isOpen])
@@ -37,11 +36,11 @@ export default function AlertModal({ isOpen, onClose, prefill }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Create new alert">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative bg-base-900 border border-base-700/50 rounded-lg w-full max-w-sm p-5">
+      <div className="absolute inset-0 bg-black/20" onClick={onClose} />
+      <div className="relative bg-base-900 border border-base-700 rounded-lg w-full max-w-sm p-5 shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-[14px] font-semibold text-white">New alert</h2>
-          <button ref={closeRef} onClick={onClose} className="text-base-500 hover:text-white transition text-sm" aria-label="Close">
+          <h2 className="text-[14px] font-semibold text-base-300">New alert</h2>
+          <button ref={closeRef} onClick={onClose} className="text-base-500 hover:text-base-300 transition text-sm" aria-label="Close">
             &times;
           </button>
         </div>
@@ -55,7 +54,7 @@ export default function AlertModal({ isOpen, onClose, prefill }) {
           </div>
           <div>
             <label className="block text-[11px] text-base-400 mb-1">Weather preference</label>
-            <select value={form.weather} onChange={set('weather')} className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-white focus:outline-none focus:border-blue-500 transition">
+            <select value={form.weather} onChange={set('weather')} className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-base-300 focus:outline-none focus:border-blue-500 transition">
               <option value="Any">Any</option>
               <option value="Sunny">Sunny</option>
               <option value="Warm">Warm</option>
@@ -80,7 +79,7 @@ function Field({ label, ...props }) {
       <label className="block text-[11px] text-base-400 mb-1">{label}</label>
       <input
         {...props}
-        className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-white placeholder-base-500 focus:outline-none focus:border-blue-500 transition"
+        className="w-full px-2.5 py-2 text-[13px] rounded bg-base-800 border border-base-700 text-base-300 placeholder-base-500 focus:outline-none focus:border-blue-500 transition"
       />
     </div>
   )

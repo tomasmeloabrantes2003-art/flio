@@ -15,19 +15,19 @@ export default function AppShell() {
     <div className="min-h-screen flex bg-base-950">
       {open && (
         <div
-          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          className="fixed inset-0 bg-black/20 z-30 md:hidden"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
       )}
 
       <aside
-        className={`fixed md:static z-40 top-0 left-0 h-full w-52 bg-base-900 border-r border-base-700/50 flex flex-col transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed md:static z-40 top-0 left-0 h-full w-52 bg-base-900 border-r border-base-700 flex flex-col transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className="px-4 h-12 flex items-center justify-between border-b border-base-700/50">
-          <span className="text-[14px] font-semibold text-white tracking-tight">flio</span>
+        <div className="px-4 h-12 flex items-center justify-between border-b border-base-700">
+          <span className="text-[14px] font-semibold text-base-300 tracking-tight">flio</span>
           <button
-            className="md:hidden text-base-400 text-sm"
+            className="md:hidden text-base-500 text-sm"
             onClick={() => setOpen(false)}
             aria-label="Close sidebar"
           >
@@ -44,7 +44,7 @@ export default function AppShell() {
               className={({ isActive }) =>
                 `block px-3 py-1.5 rounded text-[13px] transition ${
                   isActive
-                    ? 'bg-base-700/60 text-white font-medium'
+                    ? 'bg-blue-500/10 text-blue-500 font-medium'
                     : 'text-base-400 hover:text-base-300 hover:bg-base-800'
                 }`
               }
@@ -56,7 +56,7 @@ export default function AppShell() {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-12 flex items-center gap-3 px-4 border-b border-base-700/50">
+        <header className="h-12 flex items-center gap-3 px-4 border-b border-base-700">
           <button
             className="md:hidden text-base-400"
             onClick={() => setOpen(true)}

@@ -21,15 +21,15 @@ export default function MyAlerts() {
 
   return (
     <>
-      <h1 className="text-[15px] font-semibold text-white mb-4">Alerts</h1>
+      <h1 className="text-[15px] font-semibold text-base-300 mb-4">Alerts</h1>
       <div className="space-y-1.5">
         {alerts.map((a) => (
           <div
             key={a.id}
-            className="flex items-center justify-between gap-3 px-3 py-2.5 rounded bg-base-900 border border-base-700/50 hover:border-base-600 transition"
+            className="flex items-center justify-between gap-3 px-3 py-2.5 rounded bg-base-900 border border-base-700 hover:border-base-600 transition"
           >
             <div className="flex items-center gap-2.5 min-w-0">
-              <span className="text-[13px] font-medium text-white">{a.destination}</span>
+              <span className="text-[13px] font-medium text-base-300">{a.destination}</span>
               <span
                 className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
                   a.status === 'triggered'
