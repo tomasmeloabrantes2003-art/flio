@@ -3,6 +3,8 @@ import Landing from './pages/Landing'
 import AppShell from './pages/AppShell'
 import Dashboard from './pages/Dashboard'
 import MyAlerts from './pages/MyAlerts'
+import Explore from './pages/Explore'
+import Settings from './pages/Settings'
 
 export default function App() {
   return (
@@ -11,8 +13,8 @@ export default function App() {
       <Route path="/app" element={<AppShell />}>
         <Route index element={<Dashboard />} />
         <Route path="alerts" element={<MyAlerts />} />
-        <Route path="explore" element={<Dashboard />} />
-        <Route path="settings" element={<div className="text-slate-400 p-8">Settings coming soon.</div>} />
+        <Route path="explore" element={<Explore />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>
   )

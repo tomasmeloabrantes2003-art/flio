@@ -1,79 +1,71 @@
-import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { useState } from 'react';
+import { Outlet, NavLink } from 'react-router-dom';
+import { LayoutDashboard, Bell, Globe, Settings, LogOut, Menu, X } from 'lucide-react';
+import { cn } from '../components/ui/utils';
 
-const nav = [
-  { to: '/app', label: 'Dashboard', end: true },
-  { to: '/app/alerts', label: 'Alerts' },
-  { to: '/app/explore', label: 'Explore' },
-  { to: '/app/settings', label: 'Settings' },
-]
+const navItems = [
+  { to: '/app', icon: LayoutDashboard, label: 'Dashboard', end: true },
+  { to: '/app/alerts', icon: Bell, label: 'Alerts' },
+  { to: '/app/explore', icon: Globe, label: 'Explore' },
+  { to: '/app/settings', icon: Settings, label: 'Settings' },
+];
 
 export default function AppShell() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-base-950">
+    <div className="flex h-screen bg-gray-50">
       {open && (
-        <div
-          className="fixed inset-0 bg-black/20 z-30 md:hidden"
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
+        <div className="fixed inset-0 bg-black/40 z-30 md:hidden" onClick={() => setOpen(false)} />
       )}
 
-      <aside
-        className={`fixed md:static z-40 top-0 left-0 h-full w-52 bg-base-900 border-r border-base-700 flex flex-col transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}
-      >
-        <div className="px-4 h-12 flex items-center justify-between border-b border-base-700">
-          <span className="text-[14px] font-semibold text-base-300 tracking-tight">flio</span>
-          <button
-            className="md:hidden text-base-500 text-sm"
-            onClick={() => setOpen(false)}
-            aria-label="Close sidebar"
-          >
-            &times;
+      <aside className={`fixed md:static z-40 top-0 left-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col transition-transform md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
+          <h1 className="text-2xl font-bold text-blue-600">flio</h1>
+          <button className="md:hidden text-gray-400" onClick={() => setOpen(false)} aria-label="Close sidebar">
+            <X className="w-5 h-5" />
           </button>
         </div>
-        <nav className="flex-1 py-2 px-2" role="navigation" aria-label="Main">
-          {nav.map((item) => (
+
+        <nav className="flex-1 px-3 py-6 space-y-1">
+          {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               end={item.end}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-1.5 rounded text-[13px] transition ${
-                  isActive
-                    ? 'bg-blue-500/10 text-blue-500 font-medium'
-                    : 'text-base-400 hover:text-base-300 hover:bg-base-800'
-                }`
+                cn(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50'
+                )
               }
             >
+              <item.icon className="w-5 h-5" />
               {item.label}
             </NavLink>
           ))}
         </nav>
+
+        <div className="p-4 border-t border-gray-200">
+          <button className="flex items-center gap-3 px-3 py-2 w-full rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            <LogOut className="w-5 h-5" />
+            Sign out
+          </button>
+        </div>
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-12 flex items-center gap-3 px-4 border-b border-base-700">
-          <button
-            className="md:hidden text-base-400"
-            onClick={() => setOpen(true)}
-            aria-label="Open sidebar"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
+        <div className="h-16 flex items-center px-4 border-b border-gray-200 bg-white md:hidden">
+          <button onClick={() => setOpen(true)} aria-label="Open sidebar">
+            <Menu className="w-5 h-5 text-gray-600" />
           </button>
-          <span className="text-[13px] text-base-400">Dashboard</span>
-        </header>
-        <main className="flex-1 p-4 overflow-auto">
+          <span className="ml-3 text-lg font-bold text-blue-600">flio</span>
+        </div>
+        <main className="flex-1 overflow-auto">
           <Outlet />
         </main>
       </div>
     </div>
-  )
+  );
 }

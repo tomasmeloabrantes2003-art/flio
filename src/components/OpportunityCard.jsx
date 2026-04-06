@@ -1,51 +1,88 @@
-export default function OpportunityCard({ opp, onSetAlert }) {
+import { Plane, MapPin, Calendar, Sun, TrendingDown } from 'lucide-react';
+import { Card } from './ui/card';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { motion } from 'motion/react';
+
+const badgeClasses = {
+  default: 'bg-blue-500 hover:bg-blue-600',
+  success: 'bg-green-500 hover:bg-green-600',
+  warning: 'bg-orange-500 hover:bg-orange-600'
+};
+
+export function OpportunityCard({
+  city, country, temperature, weather, flightPrice, flightFrom, hotelPrice, dateRange, imageUrl, badge, badgeVariant = 'default', delay = 0
+}) {
   return (
-    <div className="bg-base-900 border border-base-700 rounded-lg p-4 hover:border-base-600 transition group">
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <p className="text-[14px] font-medium text-base-300 leading-tight">
-            {opp.destination}
-          </p>
-          <p className="text-[11px] text-base-500 mt-0.5">{opp.country}</p>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay }}
+    >
+      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 bg-white border border-gray-200">
+        <div className="flex flex-col lg:flex-row">
+          <div className="relative lg:w-1/3 h-48 lg:h-auto">
+            <img src={imageUrl} alt={`${city}, ${country}`} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            {badge && (
+              <Badge className={`absolute top-3 right-3 ${badgeClasses[badgeVariant]} text-white border-none`}>
+                {badge}
+              </Badge>
+            )}
+          </div>
+
+          <div className="flex-1 p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <MapPin className="w-4 h-4 text-gray-500" />
+                  <h3 className="text-2xl font-semibold text-gray-900">{city}</h3>
+                </div>
+                <p className="text-sm text-gray-600">{country}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <Sun className="w-4 h-4 text-orange-500" />
+                  <span className="text-xs text-gray-600">Weather</span>
+                </div>
+                <p className="text-lg font-semibold text-gray-900">{temperature}°</p>
+                <p className="text-xs text-gray-500">{weather}</p>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <Plane className="w-4 h-4 text-blue-500" />
+                  <span className="text-xs text-gray-600">Flight</span>
+                </div>
+                <p className="text-lg font-semibold text-gray-900">€{flightPrice}</p>
+                <p className="text-xs text-gray-500">from {flightFrom}</p>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <TrendingDown className="w-4 h-4 text-green-500" />
+                  <span className="text-xs text-gray-600">Hotel</span>
+                </div>
+                <p className="text-lg font-semibold text-gray-900">€{hotelPrice}</p>
+                <p className="text-xs text-gray-500">per night</p>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2 mb-1">
+                  <Calendar className="w-4 h-4 text-purple-500" />
+                  <span className="text-xs text-gray-600">Dates</span>
+                </div>
+                <p className="text-sm font-medium text-gray-900">{dateRange}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <Button className="flex-1 bg-blue-600 hover:bg-blue-700">View details</Button>
+              <Button variant="outline" className="flex-1">Set alert</Button>
+            </div>
+          </div>
         </div>
-        <Badge label={opp.badge} color={opp.badgeColor} />
-      </div>
-
-      <div className="flex gap-2 mb-3">
-        {/* TODO: fetch from OpenWeatherMap API */}
-        <Stat label={opp.weather.condition} value={`${opp.weather.temp}°`} />
-        {/* TODO: fetch from Amadeus API */}
-        <Stat label={`from ${opp.flight.origin}`} value={`€${opp.flight.price}`} />
-        {/* TODO: fetch from Booking/Hotels API */}
-        <Stat label="per night" value={`€${opp.hotel.price}`} />
-      </div>
-
-      <button
-        onClick={() => onSetAlert(opp)}
-        className="w-full py-1.5 text-[12px] font-medium text-blue-500 border border-base-700 rounded hover:bg-base-800 hover:border-blue-500/40 transition"
-      >
-        Set alert
-      </button>
-    </div>
-  )
-}
-
-function Stat({ label, value }) {
-  return (
-    <div className="flex-1 bg-base-800 rounded px-2.5 py-2 text-center">
-      <p className="text-[14px] font-medium text-base-300 leading-none">{value}</p>
-      <p className="text-[10px] text-base-500 mt-1">{label}</p>
-    </div>
-  )
-}
-
-function Badge({ label, color }) {
-  const cls = color === 'amber'
-    ? 'text-warm-400 bg-warm-500/10'
-    : 'text-blue-500 bg-blue-500/10'
-  return (
-    <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${cls}`}>
-      {label}
-    </span>
-  )
+      </Card>
+    </motion.div>
+  );
 }
